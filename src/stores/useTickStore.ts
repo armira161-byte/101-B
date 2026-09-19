@@ -74,6 +74,7 @@ export interface TickState {
   indicatorSeries: ReturnType<typeof buildFullSnapshot>['series'] | null;
   fullSnapshot: ReturnType<typeof buildFullSnapshot>['snapshot'] | null;
   prioritySignal: Signal | null;
+  lastRejectionReason: string | null;
   start: (symbolId: string, timeframe: Timeframe) => Promise<void>;
   stop: () => void;
   clearError: () => void;
@@ -365,6 +366,7 @@ export const useTickStore = create<TickState>((set, get) => ({
   indicatorSeries: null,
   fullSnapshot: null,
   prioritySignal: null,
+  lastRejectionReason: null,
 
   start: async (symbolId: string, timeframe: Timeframe) => {
     const state = get();
@@ -874,6 +876,8 @@ async function maybeEvaluateSignal(
   if (get().activeSymbolId !== state.activeSymbolId || get().activeTimeframe !== state.activeTimeframe) {
     return;
   }
+
+  set({ lastRejectionReason: signal ? null : eng.getLastRejectionReason() });
 
   let finalSignal: Signal | null = signal;
   if (isClosed) {

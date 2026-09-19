@@ -218,6 +218,10 @@ export interface PatternResult {
     d: HarmonicPoint;
   };
   harmonicRatios?: { ab_xa: number; bc_ab: number; cd_bc: number; ad_xa: number };
+  // harmonic-pattern only — длительность ноги AB в барах, для адаптивного
+  // горизонта резолва (pattern-horizon.ts, гипотеза 4b). Заполняется
+  // детектором, потребляется только backtest/pattern-horizon.ts.
+  harmonicAbLegBars?: number;
 }
 
 /** Одна из 5 точек X-A-B-C-D гармонического паттерна (диагностика/чарт). */

@@ -111,6 +111,7 @@ export function ChartPanel({ candles, series, signals = [] }: ChartPanelProps) {
   const harmonicMinLegAtr = useSettingsStore((s) => s.indicators.harmonicMinLegAtr);
   const harmonicFibTolerancePct = useSettingsStore((s) => s.indicators.harmonicFibTolerancePct);
   const harmonicHtfFactor = useSettingsStore((s) => s.indicators.harmonicHtfFactor);
+  const harmonicMinRR = useSettingsStore((s) => s.indicators.harmonicMinRR);
   const showBosLayer = useSettingsStore((s) => s.showBosLayer);
   const showOrderBlocks = useSettingsStore((s) => s.showOrderBlocks);
   const showImbalances = useSettingsStore((s) => s.showImbalances);
@@ -156,8 +157,9 @@ export function ChartPanel({ candles, series, signals = [] }: ChartPanelProps) {
       minLegAtr: harmonicMinLegAtr,
       fibTolerancePct: harmonicFibTolerancePct,
       htfFactor: harmonicHtfFactor,
+      minRR: harmonicMinRR,
     });
-  }, [candles, smartMoney, showHarmonicPatterns, harmonicMinLegAtr, harmonicFibTolerancePct, harmonicHtfFactor]);
+  }, [candles, smartMoney, showHarmonicPatterns, harmonicMinLegAtr, harmonicFibTolerancePct, harmonicHtfFactor, harmonicMinRR]);
   // Сырые X-A-B-C-D точки — отдельно от harmonicPattern (который несёт
   // только тип/PRZ/направление), для отрисовки подписанных маркеров ниже.
   // Тот же вход, что и у детектора выше, поэтому если harmonicPattern

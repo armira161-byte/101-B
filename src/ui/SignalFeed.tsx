@@ -10,7 +10,7 @@ import { deleteAllSignals } from '@/lib/signal-persistence';
 
 export function SignalFeed() {
   const current = useAnalyticsStore((s) => s.currentSignal);
-  const lastRejectionReason = useTickStore((s) => s.lastSignalRejectionReason);
+  const lastRejectionReason = useTickStore((s) => s.lastRejectionReason);
   const signals = useAnalyticsStore((s) => s.signals);
   const clearSignalHistory = useAnalyticsStore((s) => s.clearSignalHistory);
   // Точки входа на графике теперь включаются точечно, кликом по строке

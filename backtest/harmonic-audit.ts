@@ -29,6 +29,7 @@ const HARMONIC_CONFIG = {
   minLegAtr: DEFAULT_INDICATOR_CONFIG.harmonicMinLegAtr,
   fibTolerancePct: DEFAULT_INDICATOR_CONFIG.harmonicFibTolerancePct,
   htfFactor: DEFAULT_INDICATOR_CONFIG.harmonicHtfFactor,
+  minRR: DEFAULT_INDICATOR_CONFIG.harmonicMinRR,
 };
 
 const DETECTOR_WINDOW = 500; // тот же порядок, что windowSize в backtest/config.ts

@@ -55,6 +55,7 @@ export function buildFullSnapshot(
       minLegAtr: config.harmonicMinLegAtr,
       fibTolerancePct: config.harmonicFibTolerancePct,
       htfFactor: config.harmonicHtfFactor,
+      minRR: config.harmonicMinRR,
     },
   );
 
