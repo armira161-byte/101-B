@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type { Candle, IndicatorConfig, PatternResult, Signal } from '@/types/domain';
+import type { Candle, IndicatorConfig, PatternName, PatternResult, Signal } from '@/types/domain';
 import { DEFAULT_INDICATOR_CONFIG, DEFAULT_SIGNAL_TOGGLES } from '@/types/domain';
 import { buildSignal, buildFeatureVector, generateSignalId, shouldRevise, sigmoidFallback, reviseSignal, STRONG_SIGNAL_SCORE_THRESHOLD } from './signal-builder';
 import { CalibrationModel, MIN_SAMPLES, MAX_SAMPLES } from './calibration-model';
@@ -712,7 +712,7 @@ describe("buildSignal — macd-deceleration-continuation structural SL/TP (Фа�
 describe("buildSignal — FVG family structural SL/TP (Фаза 0' группа 2, sltp-geometry-source-variant-A.md §2)", () => {
   const FVG_CONFIG: IndicatorConfig = { ...CONFIG, scoreThreshold: 0 };
 
-  function fvgPattern(name: string, overrides: Partial<PatternResult> = {}): PatternResult {
+  function fvgPattern(name: PatternName, overrides: Partial<PatternResult> = {}): PatternResult {
     return {
       name,
       direction: 'buy',
@@ -737,7 +737,7 @@ describe("buildSignal — FVG family structural SL/TP (Фаза 0' группа 
       const lastClose = candles[candles.length - 1].close;
       const fvgBottom = lastClose - 4;
       const snap = buySnapshot(candles);
-      snap.patterns = [fvgPattern(name, { fvgBottom, fvgTop: lastClose - 1, oppositeZonePrice: null })];
+      snap.patterns = [fvgPattern(name as PatternName, { fvgBottom, fvgTop: lastClose - 1, oppositeZonePrice: null })];
 
       const signal = buildSignal({
         symbolId: 'BTCUSDT', timeframe: '15m', candles, config: FVG_CONFIG, atrMultiplier: 2,
@@ -845,7 +845,7 @@ describe("buildSignal — order-block-nested structural SL/TP (Фаза 0' гр�
 describe("buildSignal — candlestick family structural SL/TP (Фаза 0' группа 3, price-action convention)", () => {
   const CANDLE_CONFIG: IndicatorConfig = { ...CONFIG, scoreThreshold: 0 };
 
-  function candlePattern(name: string, overrides: Partial<PatternResult> = {}): PatternResult {
+  function candlePattern(name: PatternName, overrides: Partial<PatternResult> = {}): PatternResult {
     return {
       name,
       direction: 'buy',
@@ -876,7 +876,7 @@ describe("buildSignal — candlestick family structural SL/TP (Фаза 0' гр�
       const lastClose = candles[candles.length - 1].close;
       const sweepLow = lastClose - 3;
       const snap = buySnapshot(candles);
-      snap.patterns = [candlePattern(name, { sweepLow, sweepHigh: lastClose - 1, oppositeZonePrice: null })];
+      snap.patterns = [candlePattern(name as PatternName, { sweepLow, sweepHigh: lastClose - 1, oppositeZonePrice: null })];
 
       const signal = buildSignal({
         symbolId: 'BTCUSDT', timeframe: '15m', candles, config: CANDLE_CONFIG, atrMultiplier: 2,
@@ -934,7 +934,7 @@ describe("buildSignal — candlestick family structural SL/TP (Фаза 0' гр�
 describe("buildSignal — Three Methods structural SL/TP (Фаза 0' группа 4, measure rule)", () => {
   const TM_CONFIG: IndicatorConfig = { ...CONFIG, scoreThreshold: 0 };
 
-  function tmPattern(name: string, overrides: Partial<PatternResult> = {}): PatternResult {
+  function tmPattern(name: PatternName, overrides: Partial<PatternResult> = {}): PatternResult {
     return {
       name,
       direction: name === 'rising-three-methods' ? 'buy' : 'sell',
